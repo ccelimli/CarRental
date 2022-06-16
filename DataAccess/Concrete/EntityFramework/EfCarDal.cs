@@ -1,6 +1,6 @@
 ﻿using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
+using DataAccess.Context;
 using Entities.Concrete;
 using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
@@ -24,10 +24,15 @@ namespace DataAccess.Concrete
                              on car.BrandId equals brand.Id
                              join color in context.Colors
                              on car.ColorId equals color.Id
-                             select new CarDetailDto { CarName = car.CarName, DailyPrice = car.DailyPrice, BrandName = brand.Name, ColorName=color.Name,Description=car.Description };
-
-                return result.ToList();
-                            
+                             select new CarDetailDto 
+                             { 
+                                 CarName = car.CarName, 
+                                 DailyPrice = car.DailyPrice, 
+                                 BrandName = brand.Name, 
+                                 ColorName=color.Name,
+                                 Description=car.Description 
+                             };
+                return result.ToList();                            
             }
         }
     }
