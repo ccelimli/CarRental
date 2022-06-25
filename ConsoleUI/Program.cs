@@ -49,11 +49,11 @@ foreach (var brands in result.Data)
 }
 
 */
-User user= new User() { FirstName = "Çağatay", LastName = "Çelimli", Email = "c.celimli@live.co.uk", Password = "123456", PhoneNumber = "12215" };
+User user = new User() { FirstName = "Çağatay", LastName = "Çelimli", Email = "c.celimli@live.co.uk", Password = "123456", PhoneNumber = "12215" };
 UserManager userManager = new UserManager(new EfUserDal());
 userManager.Add(user);
 
-Customer customer = new Customer() { UserId = 13, CompanyName = "Company" };
+Customer customer = new Customer() { UserId = 13, CompanyName = "Company"};
 CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 customerManager.Add(customer);
 
@@ -61,9 +61,10 @@ foreach (var customers in customerManager.GetAll().Data)
 {
     foreach (var users in userManager.GetAll().Data)
     {
-        if (users.Id==customers.UserId)
+        if (users.Id == customers.UserId)
         {
-            Console.WriteLine(users.FirstName+" "+users.LastName);
+            Console.WriteLine(users.FirstName + " " + users.LastName);
         }
     }
 }
+

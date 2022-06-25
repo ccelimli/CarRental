@@ -8,6 +8,13 @@ namespace Business.Constants
 {
     public static class Messages
     {
+        //Brand
+        public static string BrandAdded = "Marka Eklendi"; 
+        public static string BrandDeleted = "Marka Silindi"; 
+        public static string BrandUpdated = "Marka Güncellendi"; 
+        public static string BrandListed = "Marka Listelendi"; 
+        public static string BrandsListed = "Markalar Listelendi"; 
+
         //Car
         public static string CarAdded = "Araba Eklendi.";
         public static string CarDeleted = "Araba Silindi.";
