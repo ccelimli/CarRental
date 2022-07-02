@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
@@ -21,63 +23,58 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
+        //Add
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
-            if (user.FirstName.Length < 2)
-            {
-                return new ErrorResult(Messages.InvalidFirstName);
-            }
-            if(user.Password.Length<6 || user.Password.Length > 20)
-            {
-                return new ErrorResult(Messages.InvalidPassword);
-            }
-            if (user.PhoneNumber.StartsWith("0"))
-            {
-                return new ErrorResult(Messages.InvalidPhoneNumber);
-            }
-            else
-            {
-                _userDal.Add(user);
-                return new SuccessResult(Messages.UserAdded);
-            }
+            _userDal.Add(user);
+            return new SuccessResult(Messages.UserAdded);
         }
 
+        //Delete
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
             return new SuccessResult(Messages.UserDeleted);
         }
 
+        //GetAll
         public IDataResult<List<User>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(),Messages.UsersListed);
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UsersListed);
         }
 
+        //GetByEmail
         public IDataResult<User> GetByEmail(string email)
         {
-            return new SuccessDataResult<User> (_userDal.Get(user=>user.Email==email),Messages.UserListed);
+            return new SuccessDataResult<User>(_userDal.Get(user => user.Email == email), Messages.UserListed);
         }
 
+        //GetByFirstName
         public IDataResult<List<User>> GetByFirstName(string Name)
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(user=>user.FirstName==Name),Messages.UsersListed);
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(user => user.FirstName == Name), Messages.UsersListed);
         }
 
+        //GetById
         public IDataResult<User> GetById(int Id)
         {
-            return new SuccessDataResult<User>(_userDal.Get(user=>user.Id==Id),Messages.UserListed);
+            return new SuccessDataResult<User>(_userDal.Get(user => user.Id == Id), Messages.UserListed);
         }
 
+        //GetByLastName
         public IDataResult<List<User>> GetByLastName(string lastName)
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(user=>user.LastName==lastName),Messages.UsersListed);
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(user => user.LastName == lastName), Messages.UsersListed);
         }
 
+        //GetByPhoneNumber
         public IDataResult<User> GetByPhoneNumber(string PhoneNumber)
         {
             return new SuccessDataResult<User>(_userDal.Get(user => user.PhoneNumber == PhoneNumber));
         }
 
+        //Update
         public IResult Update(User user)
         {
             _userDal.Update(user);
