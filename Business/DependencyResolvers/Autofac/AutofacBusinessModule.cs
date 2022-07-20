@@ -3,8 +3,11 @@ using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
 using Castle.DynamicProxy;
+using Core.Utilities.Helpers.FileHelper.Abstract;
+using Core.Utilities.Helpers.FileHelper.Concrete;
 using Core.Utilities.Interceptors;
 using DataAccess.Abstract;
+using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -25,6 +28,13 @@ namespace Business.DependencyResolvers.Autofac
             //Car
             builder.RegisterType<CarManager>().As<ICarService>().SingleInstance();
             builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
+
+            //CarImage
+            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
+            builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+
+            //FileHelper
+            builder.RegisterType<FileHelperManager>().As<IFileHelper>().SingleInstance();
 
             //Color
             builder.RegisterType<ColorManager>().As<IColorService>().SingleInstance();

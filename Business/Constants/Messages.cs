@@ -35,6 +35,8 @@ namespace Business.Constants
         public static string InvalidPassword="Parola uzunluğu 6-20 arasında olmalıdır!";
         public static string InvalidPhoneNumber = "Lütfen telefon numaranızı başında 0(sıfır) olmadan giriniz!";
         public static string NotFoundUser = "Kullanıcı Bulunamadı.";
+        public static string AlreadyRegistedEmail = "E-Posta zaten sisteme kayıtlı";
+        public static string AlreadyRegistedPhoneNumber = "Telefon Numarası zaten sisteme kayıtlı";
 
         //Color
         public static string ColorAdded = "Renk Eklendi.";
@@ -58,6 +60,15 @@ namespace Business.Constants
         public static string CustomerListed = "Müşteri Listelendi";
         public static string CustomersListed = "Müşteriler Listelendi";
         public static string NotFoundCustomer = "Müşteri bulunamadı";
+
+        //Image
+        public static string ImageAdded = "Fotoğraf Eklendi";
+        public static string ImageDeleted = "Fotoğraf Silindi";
+        public static string ImageUpdated = "Fotoğraf Güncellendi";
+        public static string ImageListed = "Fotoğraf Listelendi";
+        public static string ImagesListed = "Fotoğraflar listelendi";
+        public static string CarImageLimitExceded = "Bir araba için en fazla 5 fotoğraf yüklenebilir.";
+
 
         //System
         public static string MaintenanceTime = "Sistem Bakımda!";

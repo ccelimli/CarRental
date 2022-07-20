@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
@@ -27,8 +28,17 @@ namespace Business.Concrete
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
-            _userDal.Add(user);
-            return new SuccessResult(Messages.UserAdded);
+            IResult result=BusinessRules.Run(CheckAlreadyRegisteredUser(user.Email,user.PhoneNumber));
+
+            if (result!=null)
+            {
+                return result;
+            }
+            else
+            {
+                _userDal.Add(user);
+                return new SuccessResult(Messages.UserAdded);
+            }
         }
 
         //Delete
@@ -79,6 +89,24 @@ namespace Business.Concrete
         {
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
+        }
+        private IResult CheckAlreadyRegisteredUser(string email,string phoneNumber)
+        {
+            var resultEmail = _userDal.GetAll(usr => usr.Email == email).Any();
+            var resultPhoneNumber = _userDal.GetAll(usr => usr.PhoneNumber == phoneNumber).Any();
+
+            if (resultEmail)
+            {
+                return new ErrorResult(Messages.AlreadyRegistedEmail);
+            }
+            if (resultPhoneNumber)
+            {
+                return new ErrorResult(Messages.AlreadyRegistedPhoneNumber);
+            }
+            else
+            {
+                return new SuccessResult();
+            }
         }
     }
 }
