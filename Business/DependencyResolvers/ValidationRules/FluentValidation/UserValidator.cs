@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -22,17 +23,15 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(user => user.LastName).Must(ControlName).WithMessage("Kullanıcı Soyismi Geçersiz Karakter İçeriyor!");
             RuleFor(user => user.Email).NotEmpty().WithMessage("Kullanıcı Email Boş Olamaz!");
             RuleFor(user => user.Email).Must(ControlEmail).WithMessage("Geçersiz Email!");
-            RuleFor(user => user.Password).NotEmpty().WithMessage("Kullanıcı Parolası Boş Olamaz!");
-            RuleFor(user => user.Password).MinimumLength(6).MaximumLength(20).WithMessage("Kullanıcı Parolası 6-20 Karakter Arası Olmalıdır!");
-            RuleFor(user => user.Password).Must(ControlPassword).WithMessage("Geçersiz Parola Karakterleri!");
             RuleFor(user => user.PhoneNumber).NotEmpty().WithMessage("Kullanıcı Telefon Numarası Boş Olamaz!");
             RuleFor(user => user.PhoneNumber).Must(ControlPhoneNumber).WithMessage("Geçersiz Telefon Numarası! Telefon Numarası 0(sıfır) ile başlayamaz veya rakamdan başka bir değer alamaz");
         }
-
+        
         //ControlName
         private bool ControlName(string arg)
         {
-            var result = Regex.Match(arg, "^[A-Z][a-zA-Z]*$");
+            Regex regex = new Regex(@"^[A-ZİĞÜŞÖÇ][a-zA-ZğüşöçıİĞÜŞÖÇ]*$");
+            var result = regex.Match(arg);
             if (result.Success)
             {
                 return true;
@@ -87,5 +86,6 @@ namespace Business.ValidationRules.FluentValidation
                 return false;
             }
         }
+        
     }
 }

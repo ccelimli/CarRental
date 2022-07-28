@@ -2,7 +2,8 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
-using Core.Business;
+using Core.Entities.Concrete;
+using Core.Utilities.Business;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
@@ -90,6 +91,15 @@ namespace Business.Concrete
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
+
+        //GetClaims
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+        }
+
+
+        //CheckAlreadyRegisteredUser
         private IResult CheckAlreadyRegisteredUser(string email,string phoneNumber)
         {
             var resultEmail = _userDal.GetAll(usr => usr.Email == email).Any();

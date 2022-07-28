@@ -6,6 +6,8 @@ using Castle.DynamicProxy;
 using Core.Utilities.Helpers.FileHelper.Abstract;
 using Core.Utilities.Helpers.FileHelper.Concrete;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT.Abstract;
+using Core.Utilities.Security.JWT.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
@@ -21,6 +23,9 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
+            //Auth
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+
             //Brand
             builder.RegisterType<BrandManager>().As<IBrandService>();
             builder.RegisterType<EfBrandDal>().As<IBrandDal>();
@@ -43,6 +48,9 @@ namespace Business.DependencyResolvers.Autofac
             //Customer
             builder.RegisterType<CustomerManager>().As<ICustomerService>().SingleInstance();
             builder.RegisterType<EfCustomerDal>().As<ICustomerDal>().SingleInstance();
+
+            //JWT
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             //Rental
             builder.RegisterType<RentalManager>().As<IRentalService>().SingleInstance();

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,9 +36,11 @@ namespace Business.Constants
         public static string InvalidFirstName = "İsim En Az 2 Karakter Olmalıdır!";
         public static string InvalidPassword="Parola uzunluğu 6-20 arasında olmalıdır!";
         public static string InvalidPhoneNumber = "Lütfen telefon numaranızı başında 0(sıfır) olmadan giriniz!";
-        public static string NotFoundUser = "Kullanıcı Bulunamadı.";
+        public static string UserNotFound = "Kullanıcı Bulunamadı.";
         public static string AlreadyRegistedEmail = "E-Posta zaten sisteme kayıtlı";
         public static string AlreadyRegistedPhoneNumber = "Telefon Numarası zaten sisteme kayıtlı";
+        public static string UserRegistered = "Kayıt Başarılı";
+        public static string SuccessfulLogin = "Giriş Başarılı";
 
         //Color
         public static string ColorAdded = "Renk Eklendi.";
@@ -72,6 +76,7 @@ namespace Business.Constants
 
         //System
         public static string MaintenanceTime = "Sistem Bakımda!";
-
+        public static string AuthorizationDenied = "Yetkiniz Yok";
+        public static string AccessTokenCreated="Token Oluşturuldu";
     }
 }

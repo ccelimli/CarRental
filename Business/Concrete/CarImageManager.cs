@@ -2,7 +2,7 @@
 using Business.Constants;
 using Business.DependencyResolvers.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
-using Core.Business;
+using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelper.Abstract;
 using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
@@ -28,8 +28,8 @@ namespace Business.Concrete
             _fileHelper = fileHelper;
         }
 
-        [ValidationAspect(typeof(CarImageValidator))]
         //Add
+        [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             var result = BusinessRules.Run(CheckIfCarImageLimit(carImage.CarId));
