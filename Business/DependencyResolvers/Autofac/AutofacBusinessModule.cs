@@ -24,11 +24,11 @@ namespace Business.DependencyResolvers.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             //Auth
-            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
 
             //Brand
-            builder.RegisterType<BrandManager>().As<IBrandService>();
-            builder.RegisterType<EfBrandDal>().As<IBrandDal>();
+            builder.RegisterType<BrandManager>().As<IBrandService>().SingleInstance();
+            builder.RegisterType<EfBrandDal>().As<IBrandDal>().SingleInstance();
 
             //Car
             builder.RegisterType<CarManager>().As<ICarService>().SingleInstance();
@@ -50,7 +50,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfCustomerDal>().As<ICustomerDal>().SingleInstance();
 
             //JWT
-            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
 
             //Rental
             builder.RegisterType<RentalManager>().As<IRentalService>().SingleInstance();

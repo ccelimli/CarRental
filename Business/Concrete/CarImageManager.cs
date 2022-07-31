@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.DependencyResolvers.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelper.Abstract;
@@ -30,6 +32,7 @@ namespace Business.Concrete
 
         //Add
         [ValidationAspect(typeof(CarImageValidator))]
+        [SecuredOperation("carimage.add,admin")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             var result = BusinessRules.Run(CheckIfCarImageLimit(carImage.CarId));
@@ -51,6 +54,7 @@ namespace Business.Concrete
         }
 
         //Delete
+        [SecuredOperation("carimage.delete,admin")]
         public IResult Delete(CarImage carImage)
         {
             var result= _fileHelper.Delete(PathConstant.ImagePath + carImage.ImagePath);
@@ -63,12 +67,14 @@ namespace Business.Concrete
         }
 
         //GetAll
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.ImagesListed);
         }
 
         //GetByCarId
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
             IResult result = BusinessRules.Run(CheckCarImageCount(carId));
@@ -80,12 +86,15 @@ namespace Business.Concrete
         }
 
         //GetByImageId
+        [CacheAspect]
         public IDataResult<CarImage> GetByImageId(int Id)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(carImage => carImage.Id == Id), Messages.ImageListed);
         }
 
         //Update
+        [ValidationAspect(typeof(CarImageValidator))]
+        [SecuredOperation("carimage.update,admin")]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             var result = _fileHelper.Update(file, PathConstant.ImagePath + carImage.ImagePath, PathConstant.ImagePath);

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //[Authorize(Roles = "Product.List")]
         //GetAll
         [HttpGet("getall")]
         public IActionResult Get()

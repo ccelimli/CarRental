@@ -58,6 +58,7 @@ namespace Business.Concrete
         }
 
         //Update
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);

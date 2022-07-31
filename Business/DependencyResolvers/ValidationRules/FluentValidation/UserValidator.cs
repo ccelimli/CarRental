@@ -15,19 +15,27 @@ namespace Business.ValidationRules.FluentValidation
 
         public UserValidator()
         {
+            // FirstName
             RuleFor(user => user.FirstName).NotEmpty().WithMessage("Kullanıcı İsmi Boş Olamaz!");
             RuleFor(user => user.FirstName).MinimumLength(2).WithMessage("Kullanıcı İsmi 2 Karakteden Daha Az Olamaz!");
             RuleFor(user => user.FirstName).Must(ControlName).WithMessage("Kullanıcı İsmi Geçersiz Karakter İçeriyor!");
+
+            // LastName
             RuleFor(user => user.LastName).NotEmpty().WithMessage("Kullanıcı Soyismi Boş Olamaz!");
             RuleFor(user => user.LastName).MinimumLength(2).WithMessage("Kullanıcı Soyismi 2 Karakterden Daha Az Olamaz!");
             RuleFor(user => user.LastName).Must(ControlName).WithMessage("Kullanıcı Soyismi Geçersiz Karakter İçeriyor!");
+
+            // Email
             RuleFor(user => user.Email).NotEmpty().WithMessage("Kullanıcı Email Boş Olamaz!");
             RuleFor(user => user.Email).Must(ControlEmail).WithMessage("Geçersiz Email!");
+
+            //PhoneNumber
             RuleFor(user => user.PhoneNumber).NotEmpty().WithMessage("Kullanıcı Telefon Numarası Boş Olamaz!");
             RuleFor(user => user.PhoneNumber).Must(ControlPhoneNumber).WithMessage("Geçersiz Telefon Numarası! Telefon Numarası 0(sıfır) ile başlayamaz veya rakamdan başka bir değer alamaz");
+            RuleFor(user => user.PhoneNumber).Must(StartWith).WithMessage("Telefon numarası 0(sıfır) ile başlayamaz");
         }
         
-        //ControlName
+        // ControlName
         private bool ControlName(string arg)
         {
             Regex regex = new Regex(@"^[A-ZİĞÜŞÖÇ][a-zA-ZğüşöçıİĞÜŞÖÇ]*$");
@@ -42,7 +50,7 @@ namespace Business.ValidationRules.FluentValidation
             }
         }
 
-        //ControlEmail
+        // ControlEmail
         private bool ControlEmail(string arg)
         {
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
@@ -57,22 +65,7 @@ namespace Business.ValidationRules.FluentValidation
             }
         }
 
-        //ControlPassword
-        private bool ControlPassword(string arg)
-        {
-            Regex regex = new Regex("^(?=.*?[A - Z])(?=.*?[a - z])(?=.*?[0 - 9])(?=.*?[#?!@$%^&*-])$");
-            var result = regex.Match(arg);
-            if (result.Success)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        //ControlPhoneNumber
+        // ControlPhoneNumber
         private bool ControlPhoneNumber(string arg)
         {
             Regex regex = new Regex(@"^[1-9]{10}$");
@@ -86,6 +79,18 @@ namespace Business.ValidationRules.FluentValidation
                 return false;
             }
         }
-        
+
+        private bool StartWith(string arg)
+        {
+            var result = arg.StartsWith('0');
+            if (arg.StartsWith('0'))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
