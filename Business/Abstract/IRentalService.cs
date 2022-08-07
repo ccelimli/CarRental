@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Result.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,6 @@ namespace Business.Abstract
         IDataResult<List<Rental>> GetByCustomerId(int CustomerId);
         IDataResult<List<Rental>> GetByRentDate(DateTime rentDate);
         IDataResult<List<Rental>> GetByReturnDate(DateTime returnDate);
+        IDataResult<List<RentalDetailDto>> GetRentalDetails();
     }
 }

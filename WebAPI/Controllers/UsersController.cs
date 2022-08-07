@@ -113,6 +113,18 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //GetUserDetails
+        [HttpGet("getuserdetails")]
+        public IActionResult GetUserDetails()
+        {
+            var result = _userService.GetUserDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         //Update
         [HttpPost("update")]
         public IActionResult Update(User user)

@@ -6,6 +6,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,11 @@ namespace Business.Concrete
         public IDataResult<List<Rental>> GetByReturnDate(DateTime returnDate)
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(rental => rental.ReturnDate == returnDate), Messages.RentalsListed);
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.RentalsListed);
         }
 
         //Update

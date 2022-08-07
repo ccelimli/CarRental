@@ -64,6 +64,17 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //GetColorDetails
+        public IActionResult GetColorDetails()
+        {
+            var result = _colorService.GetColorDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         //Update
         [HttpPost("update")]
         public IActionResult Update(Color color)

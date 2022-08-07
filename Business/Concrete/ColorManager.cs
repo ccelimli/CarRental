@@ -8,6 +8,7 @@ using Core.Utilities.Result.Abstract;
 using Core.Utilities.Result.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,11 @@ namespace Business.Concrete
         public IDataResult<Color> GetByColorId(int Id)
         {
             return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == Id), Messages.ColorListed);
+        }
+
+        public IDataResult<List<ColorDetailDto>> GetColorDetails()
+        {
+            return new SuccessDataResult<List<ColorDetailDto>>(_colorDal.GetColorDetails(), Messages.ColorsListed);
         }
 
         //Update

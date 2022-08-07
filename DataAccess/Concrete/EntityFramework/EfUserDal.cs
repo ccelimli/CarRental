@@ -27,5 +27,22 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
+
+        public List<UserDetailDto> GetUserDetails()
+        {
+            using (var context = new CarRentalContext())
+            {
+                var result = from user in context.Users
+                             select new UserDetailDto
+                             {
+                                 Id = user.Id,
+                                 FirstName = user.FirstName,
+                                 LastName = user.LastName,
+                                 Email = user.Email,
+                                 PhoneNumber = user.PhoneNumber
+                             };
+                return result.ToList();
+            }
+        }
     }
 }
